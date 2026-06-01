@@ -162,6 +162,9 @@ h2{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(1.9rem
 .tsukun-cta{
   position:fixed;bottom:0;left:0;right:0;z-index:200;
   display:flex;align-items:center;gap:12px;
+  transform:translateY(100%);opacity:0;transition:transform .5s ease,opacity .5s ease;
+  pointer-events:none;}
+.tsukun-cta.visible{transform:translateY(0);opacity:1;pointer-events:auto;
   background:linear-gradient(100deg,#162558,#1e3478);
   border-top:1px solid rgba(233,185,73,.4);
   padding:13px 18px 13px 16px;
@@ -529,6 +532,12 @@ document.addEventListener('keydown',function(e){var m=document.getElementById('m
 // スワイプ
 document.getElementById('makuModal').addEventListener('touchstart',function(e){makuTx=e.touches[0].clientX;},{passive:true});
 document.getElementById('makuModal').addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-makuTx;if(Math.abs(dx)>40){dx<0?makuNext():makuPrev();}},{passive:true});
+
+// ===== TENTSUKUN BANNER =====
+window.addEventListener('scroll',function(){
+  var cta=document.querySelector('.tsukun-cta');
+  if(window.scrollY>250){cta.classList.add('visible');}else{cta.classList.remove('visible');}
+},{passive:true});
 
 // ===== REVEAL =====
 var io=new IntersectionObserver(function(entries){
