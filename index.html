@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>未来への一針 — Step Into the Future</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#000 !important;color:#fff;font-family:"Noto Sans JP",sans-serif;font-weight:300;line-height:1.9;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ===== 全画面固定パーティクル ===== */
+#bgCanvas{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  z-index:0;
+  pointer-events:none;
+  background:#000;
+}
+
+/* ===== コンテンツ ===== */
+.page{position:relative;z-index:10}
+.wrap{max-width:700px;margin:0 auto;padding:0 28px}
+section{padding:60px 0}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;
+  padding:80px 28px 60px;
+}
+.hero-badge{
+  font-family:"Cormorant Garamond",serif;font-style:italic;
+  font-size:13px;letter-spacing:.38em;color:#e9b949;
+  text-transform:uppercase;margin-bottom:32px;
+  opacity:0;animation:up .9s .4s ease forwards;
+}
+.hero-title{
+  font-family:"Shippori Mincho B1",serif;font-weight:800;
+  font-size:clamp(4rem,20vw,7rem);line-height:1.05;
+  letter-spacing:.06em;color:#fff;margin-bottom:20px;
+  text-shadow:0 0 60px rgba(233,185,73,.5),0 0 120px rgba(233,185,73,.2);
+  opacity:0;animation:up 1.1s .65s ease forwards;
+}
+.hero-en{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(1.1rem,5vw,1.8rem);letter-spacing:.3em;
+  color:#c0b8a8;font-weight:400;margin-bottom:44px;
+  opacity:0;animation:up .9s .9s ease forwards;
+}
+.hero-catch{
+  font-size:1rem;color:#d0c8be;line-height:2.3;max-width:26ch;
+  border-top:1px solid rgba(233,185,73,.35);
+  border-bottom:1px solid rgba(233,185,73,.35);
+  padding:22px 0;
+  opacity:0;animation:up .9s 1.1s ease forwards;
+}
+.hero-scroll{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;animation:fadeIn .8s 1.8s ease forwards;
+}
+.hero-scroll span{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:11px;letter-spacing:.35em;color:#5cc6e8}
+.hero-scroll i{display:block;width:1px;height:52px;background:linear-gradient(#5cc6e8,transparent);animation:pulse 2.2s ease-in-out infinite}
+
+/* ===== SECTION LABEL ===== */
+.slabel{
+  font-family:"Cormorant Garamond",serif;font-style:italic;
+  font-size:12px;letter-spacing:.4em;color:#e9b949;
+  text-transform:uppercase;display:flex;align-items:center;gap:16px;
+  margin-bottom:24px;
+}
+.slabel::before{content:"";width:38px;height:1px;background:#e9b949;opacity:.65;flex-shrink:0}
+
+h2{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(1.9rem,7vw,2.7rem);line-height:1.55;color:#fff;letter-spacing:.05em;margin-bottom:28px}
+.g{color:#e9b949}.c{color:#5cc6e8}
+.txt{font-size:1.02rem;color:#d8d2c8;line-height:2.2;font-weight:300;margin-bottom:18px}
+.txt strong{color:#fff;font-weight:500}
+
+/* ===== SEPARATOR ===== */
+.gline{display:flex;flex-direction:column;align-items:center;padding:24px 0;gap:10px}
+.gline-dot{width:6px;height:6px;border-radius:50%;background:#e9b949;box-shadow:0 0 14px #e9b949,0 0 28px rgba(233,185,73,.5)}
+.gline-bar{width:1px;height:70px;background:linear-gradient(transparent,#e9b949,transparent);opacity:.7}
+
+/* ===== STITCH ===== */
+.stitch{height:2px;background:repeating-linear-gradient(90deg,rgba(233,185,73,.65) 0,rgba(233,185,73,.65) 9px,transparent 9px,transparent 18px);margin:32px 0;transform:scaleX(0);transform-origin:left;transition:transform 1.1s .1s cubic-bezier(.2,.8,.2,1)}
+.stitch.show{transform:scaleX(1)}
+
+/* ===== セクション背景（少し暗い半透明） ===== */
+.sec-bg{background:rgba(0,0,0,.55);backdrop-filter:blur(0px)}
+
+/* ===== IMAGE AREAS ===== */
+.img-area{width:100%;margin:32px 0;border:1px solid rgba(233,185,73,.25);overflow:hidden;position:relative;aspect-ratio:16/9;background:rgba(10,8,0,.5)}
+.img-area img{width:100%;height:100%;display:block;filter:brightness(.88);transition:filter .6s ease;object-fit:cover;color:transparent;font-size:.7rem}
+.img-area:hover img{filter:brightness(1)}
+.img-area::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,.65));pointer-events:none}
+.img-placeholder{width:100%;aspect-ratio:16/9;background:rgba(10,8,0,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#555;font-size:.82rem;letter-spacing:.08em}
+.img-placeholder .ic{font-size:2rem;opacity:.35}
+
+/* ===== THREE PILLARS ===== */
+.pillars{display:flex;flex-direction:column;gap:2px;margin:36px 0}
+.pl{display:flex;align-items:stretch;background:rgba(12,12,12,.9);border:1px solid #252525;overflow:hidden;transition:border-color .4s,box-shadow .4s}
+.pl:hover{border-color:#e9b949;box-shadow:0 0 30px rgba(233,185,73,.08)}
+.pl-bar{width:4px;flex-shrink:0}
+.pl-in{padding:20px 22px}
+.pl-key{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.35rem;letter-spacing:.1em;margin-bottom:4px}
+.pl-sub{font-size:.8rem;color:#6a6560;line-height:1.8}
+.pl-n .pl-bar{background:#e9b949}.pl-n .pl-key{color:#e9b949}
+.pl-c .pl-bar{background:#fff}.pl-c .pl-key{color:#fff}
+.pl-a .pl-bar{background:#5cc6e8}.pl-a .pl-key{color:#5cc6e8}
+
+/* ===== PULLQUOTE ===== */
+.pq{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(1.3rem,5.5vw,1.9rem);line-height:1.9;color:#fff;letter-spacing:.05em;text-align:center;padding:28px 0;border-top:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a;margin:28px 0;position:relative}
+.pq::before,.pq::after{content:"";position:absolute;left:50%;transform:translateX(-50%);width:44px;height:1px;background:#e9b949}
+.pq::before{top:-1px}.pq::after{bottom:-1px}
+.pq b{color:#e9b949}
+
+/* ===== STORY CARDS ===== */
+.scard{background:rgba(12,12,12,.92);border:1px solid #252525;padding:28px 24px;margin-bottom:12px;position:relative;overflow:hidden;transition:border-color .4s}
+.scard:hover{border-color:rgba(233,185,73,.5)}
+.scard::after{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#e9b949,transparent);opacity:0;transition:opacity .4s}
+.scard:hover::after{opacity:1}
+.scard-num{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.78rem;letter-spacing:.32em;color:#e9b949;margin-bottom:10px}
+.scard h3{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:1.15rem;color:#fff;letter-spacing:.05em;margin-bottom:10px}
+.scard p{font-size:.9rem;color:#c4bdb1;line-height:2.1;font-weight:300}
+
+/* ===== PROCESS ===== */
+.proc{position:relative;padding-left:38px;margin-top:36px}
+.proc::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:1px;background:linear-gradient(#e9b949,#5cc6e8)}
+.ps{position:relative;padding-bottom:38px}
+.ps:last-child{padding-bottom:0}
+.ps::before{content:"";position:absolute;left:-31px;top:5px;width:14px;height:14px;border-radius:50%;background:#000;border:2px solid #e9b949;box-shadow:0 0 14px rgba(233,185,73,.6),0 0 28px rgba(233,185,73,.3)}
+.ps-tool{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.78rem;letter-spacing:.22em;color:#5cc6e8;text-transform:uppercase;margin-bottom:6px}
+.ps h3{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:.05em;margin-bottom:8px}
+.ps p{font-size:.9rem;color:#c4bdb1;line-height:2;font-weight:300}
+
+/* ===== BIG MESSAGE ===== */
+.bigmsg{text-align:center;padding:40px 0}
+.bigmsg-main{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:clamp(2.1rem,9vw,3.3rem);line-height:1.65;color:#fff;letter-spacing:.06em;margin-bottom:28px}
+.bigmsg-main span{display:block;color:#e9b949;text-shadow:0 0 30px rgba(233,185,73,.4)}
+.bigmsg-sub{font-size:.98rem;color:#c4bdb1;line-height:2.3;max-width:30ch;margin:0 auto;font-weight:300}
+
+/* ===== PORTFOLIO ===== */
+.pcards{display:flex;flex-direction:column;gap:12px;margin-top:36px}
+.pc{display:block;text-decoration:none;color:inherit;background:rgba(12,12,12,.92);border:1px solid #252525;padding:26px 22px;position:relative;transition:border-color .4s,box-shadow .4s}
+.pc:hover{border-color:#e9b949;box-shadow:0 16px 50px -16px rgba(233,185,73,.2)}
+.pc::after{content:"→";font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.3rem;color:#e9b949;position:absolute;right:22px;bottom:22px;transition:transform .4s}
+.pc:hover::after{transform:translateX(5px)}
+.pc-num{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.78rem;letter-spacing:.3em;color:#e9b949;margin-bottom:10px}
+.pc h3{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:.04em;margin-bottom:10px}
+.pc p{font-size:.86rem;color:#b8b2a6;line-height:2;font-weight:300;padding-right:28px}
+
+/* ===== FOOTER ===== */
+footer{padding:80px 28px 60px;text-align:center;border-top:1px solid #1c1c1c}
+.ft-sig{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.7rem;letter-spacing:.22em;color:#e9b949;margin-bottom:12px;text-shadow:0 0 20px rgba(233,185,73,.4)}
+.ft-title{font-family:"Shippori Mincho B1",serif;font-size:1.05rem;color:#fff;letter-spacing:.12em;margin-bottom:20px}
+.ft-meta{font-size:.76rem;color:#555;line-height:2.2}
+.ft-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#e9b949;vertical-align:middle;margin:0 10px}
+
+/* ===== REVEAL ===== */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .95s ease,transform .95s ease}
+.rv.show{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{transform:scaleY(.35);transform-origin:top;opacity:.4}50%{transform:scaleY(1);transform-origin:top;opacity:1}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.stitch{opacity:1!important;transform:none!important}.stitch{transform:scaleX(1)!important}}
+
+/* ===== スマホ専用 余白徹底削減 ===== */
+@media(max-width:640px){
+  .hero{padding:16px 20px 36px}
+  .hero-badge{margin-bottom:14px}
+  .hero-en{margin-bottom:24px}
+  .hero-catch{padding:14px 0}
+  .hero-scroll{display:none}
+  section{padding:36px 0}
+  .wrap{padding:0 18px}
+  .gline{padding:16px 0;gap:8px}
+  .gline-bar{height:44px}
+  .slabel{margin-bottom:14px}
+  h2{margin-bottom:16px;font-size:clamp(1.6rem,7vw,2.4rem)}
+  .txt{margin-bottom:12px;line-height:2}
+  .stitch{margin:18px 0}
+  .pillars{margin:20px 0;gap:2px}
+  .pl-in{padding:14px 16px}
+  .pq{padding:20px 0;margin:20px 0;font-size:clamp(1.1rem,5vw,1.6rem);line-height:1.75}
+  .img-area{margin:20px 0}
+  .scard{padding:20px 16px;margin-bottom:8px}
+  .scard h3{margin-bottom:8px}
+  .proc{margin-top:22px}
+  .ps{padding-bottom:26px}
+  .bigmsg{padding:24px 0}
+  .bigmsg-main{margin-bottom:18px}
+  .pcards{gap:8px;margin-top:22px}
+  .pc{padding:20px 16px}
+  footer{padding:44px 20px 36px}
+}
+</style>
+</head>
+<body>
+
+<!-- 全画面固定パーティクル背景 -->
+<canvas id="bgCanvas"></canvas>
+
+<div class="page">
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-badge">第2回 全国テント技能競技大会 出展作品</span>
+  <h1 class="hero-title">未来への<br>一針</h1>
+  <p class="hero-en">Step Into the Future</p>
+  <p class="hero-catch">自然・技術・AI——<br>三つの力が縫い合わさり、<br>ものづくりの夜明けが始まる。</p>
+  <div class="hero-scroll"><span>Scroll</span><i></i></div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="wrap">
+    <div class="gline"><div class="gline-dot"></div><div class="gline-bar"></div><div class="gline-dot"></div></div>
+
+    <div class="img-area rv">
+      <img src="craftsman_ai.jpeg" alt="職人とAIアバターが森で握手する瞬間">
+    </div>
+
+    <p class="slabel rv">The Concept</p>
+    <div class="stitch"></div>
+    <h2 class="rv">この<span class="g">一針</span>は、<br>新時代の<span class="g">はじまり。</span></h2>
+    <p class="txt rv d1">AIと技術が融合する今、ものづくりは新しい時代へと踏み出そうとしています。職人の技に<strong>AIの知性</strong>が加わり、その根底には<strong>自然の力</strong>が息づく。</p>
+    <p class="txt rv d2">三者が共生することで、今まで不可能だったことが可能になる——そんな時代のはじまりに、私たちは立っています。</p>
+
+    <div class="pillars rv d3">
+      <div class="pl pl-n"><div class="pl-bar"></div><div class="pl-in"><p class="pl-key">自然 — Nature</p><p class="pl-sub">すべての根源にある、生命の力</p></div></div>
+      <div class="pl pl-c"><div class="pl-bar"></div><div class="pl-in"><p class="pl-key">技術 — Craft</p><p class="pl-sub">受け継がれてきた、職人の手</p></div></div>
+      <div class="pl pl-a"><div class="pl-bar"></div><div class="pl-in"><p class="pl-key">AI — Intelligence</p><p class="pl-sub">未来を切り拓く、新しい知性</p></div></div>
+    </div>
+
+    <div class="pq rv">伝統と革新が出会う<br><b>その瞬間に、あなたも立ち会ってください。</b></div>
+  </div>
+</section>
+
+<!-- BIRTH STORY -->
+<section id="story">
+  <div class="wrap">
+    <div class="gline"><div class="gline-dot"></div><div class="gline-bar"></div><div class="gline-dot"></div></div>
+    <p class="slabel rv">Birth Story</p>
+    <h2 class="rv">一枚の白い生地から、<br><span class="g">世界が生まれた。</span></h2>
+    <p class="txt rv d1">この作品は、テント職人が一枚の生地を縫い上げることから始まります。ねじれた縫い目は、それ自体が物語です。</p>
+
+    <div class="img-area rv d2">
+      <img src="tent.png" alt="完成した白いテント作品">
+    </div>
+
+    <div class="scard rv d1"><p class="scard-num">Chapter 01</p><h3>白いスクリーン</h3><p>真っ白な生地を縫い合わせ、テントを完成させる。それがプロジェクションマッピングのスクリーンとなります。テント職人だからこそできる、生地と技術の融合。</p></div>
+    <div class="scard rv d2"><p class="scard-num">Chapter 02</p><h3>映像・音楽の誕生</h3><p>AIツールを使い、自然とAIが融合する映像と音楽を生み出しました。職人がイメージを描き、AIが形にする——その往復から、一人では辿り着けない表現が生まれました。</p></div>
+    <div class="scard rv d3"><p class="scard-num">Chapter 03</p><h3>光が命を吹き込む</h3><p>プロジェクションマッピングによって、静かな白いテントが変わっていく。職人とAIが出会い、これからを共に歩む姿を表現しました。</p></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="gline"><div class="gline-dot"></div><div class="gline-bar"></div><div class="gline-dot"></div></div>
+    <p class="slabel rv">Working With AI</p>
+    <h2 class="rv">AIは道具ではなく、<br><span class="c">共に創る相棒。</span></h2>
+    <p class="txt rv d1">映像・音楽・設計、すべてを最新のAIツールと共に生み出しました。</p>
+
+    <div class="img-area rv d2">
+      <img src="craftsman.jpg" alt="AIと共にミシンで縫い上げる職人">
+    </div>
+
+    <div class="proc">
+      <div class="ps rv d1"><p class="ps-tool">Gemini</p><h3>世界観を描く</h3><p>頭の中のイメージを言葉で伝え、ビジュアルに起こす。自然とAIが融合する情景を対話しながら形にしていきました。</p></div>
+      <div class="ps rv d2"><p class="ps-tool">Runway / Kling</p><h3>映像を生み出す</h3><p>静止画に命を吹き込み、動く映像へ。植物が芽吹き、光が走り、職人とAIが出会う場面を紡ぎました。</p></div>
+      <div class="ps rv d3"><p class="ps-tool">Suno</p><h3>音楽を奏でる</h3><p>作品のために書き下ろした歌詞に、AIがメロディを与える。世界に一つだけの楽曲が完成しました。</p></div>
+      <div class="ps rv d4"><p class="ps-tool">HeavyM</p><h3>テントに灯す</h3><p>映像と音をテントの曲面と背景に投影。光と生地と技術が重なり合い、作品が完成します。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGE -->
+<section id="future">
+  <div class="wrap">
+    <div class="gline"><div class="gline-dot"></div><div class="gline-bar"></div><div class="gline-dot"></div></div>
+    <div class="bigmsg rv">
+      <p class="bigmsg-main">できなかったことが、<span>できる時代へ。</span></p>
+      <p class="bigmsg-sub">AIは仕事を奪うものではなく、職人の想像力をどこまでも広げてくれるもの。手仕事の温もりと最先端の知性、その両方を握りしめて新しいものづくりを楽しんでいきます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="works">
+  <div class="wrap">
+    <div class="gline"><div class="gline-dot"></div><div class="gline-bar"></div><div class="gline-dot"></div></div>
+    <p class="slabel rv">What AI Makes Possible</p>
+    <h2 class="rv">こんなものが、<br><span class="g">もう作れる時代。</span></h2>
+    <p class="txt rv d1">テントづくりの傍ら、AIと共に形にしてきた実績です。</p>
+    <div class="pcards">
+      <a class="pc rv d1" href="#"><p class="pc-num">Work 01</p><h3>飲食店のホームページ</h3><p>友人の居酒屋のために、AIと一緒にゼロから制作・公開。コードの知識ゼロから、お店の魅力を伝えるサイトを形にしました。</p></a>
+      <a class="pc rv d2" href="#"><p class="pc-num">Work 02</p><h3>テント業界SaaS「幕ナビ」</h3><p>生地の張り替えシミュレーター・自動見積もりなど、業界の困りごとを解決するツール群を開発中。</p></a>
+      <a class="pc rv d3" href="#"><p class="pc-num">Work 03</p><h3>施工事例・ポートフォリオ</h3><p>これまで手がけてきたテント・シートの施工事例集。技術とデザインの記録をまとめています。</p></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="ft-sig">Ai Sew Up, Together</p>
+  <p class="ft-title">未来への一針</p>
+  <p class="ft-meta">第2回 全国テント技能競技大会<span class="ft-dot"></span>2026.6.5<span class="ft-dot"></span>ウインクあいち</p>
+</footer>
+
+</div>
+
+<script>
+// ===== 全画面固定パーティクル =====
+(function(){
+  var cv = document.getElementById('bgCanvas');
+  var ctx = cv.getContext('2d');
+  var W, H;
+
+  function resize(){
+    W = cv.width = window.innerWidth;
+    H = cv.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
+
+  // 大きな光の玉（明るくした）
+  var orbs = [
+    {x:.15,y:.25,r:160,vx:.0008,vy:.0005,type:'gold',phase:0,pa:.006},
+    {x:.75,y:.15,r:200,vx:-.0006,vy:.0007,type:'cyan',phase:1.5,pa:.005},
+    {x:.5, y:.6, r:180,vx:.0005,vy:-.0004,type:'gold',phase:3,pa:.007},
+    {x:.2, y:.8, r:140,vx:.0007,vy:.0006,type:'cyan',phase:0.8,pa:.006},
+    {x:.85,y:.55,r:170,vx:-.0007,vy:-.0005,type:'gold',phase:2.2,pa:.005},
+    {x:.4, y:.35,r:120,vx:.0004,vy:.0008,type:'cyan',phase:4,pa:.008},
+  ];
+
+  // 小粒子
+  var dots = [];
+  for(var i=0;i<140;i++){
+    dots.push({
+      x:Math.random(),y:Math.random(),
+      r:Math.random()*2.8+.6,
+      vx:(Math.random()-.5)*.00025,
+      vy:-(Math.random()*.00018+.00008),
+      a:Math.random()*.75+.25,
+      life:Math.floor(Math.random()*200),
+      max:Math.floor(Math.random()*180+100),
+      gold:Math.random()>.38
+    });
+  }
+
+  // 流れる光の筋
+  var streaks = [];
+  for(var k=0;k<22;k++){
+    streaks.push({
+      x:Math.random(),y:Math.random(),
+      len:Math.random()*.12+.04,
+      angle:-Math.PI/2+( Math.random()-.5)*.8,
+      speed:Math.random()*.0004+.0002,
+      a:Math.random()*.45+.15,
+      gold:Math.random()>.45,
+      w:Math.random()*1.2+.3
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#000';
+    ctx.fillRect(0,0,W,H);
+
+    // 光の玉
+    orbs.forEach(function(o){
+      o.phase+=o.pa;
+      var pulse=Math.sin(o.phase)*.25+1;
+      var gx=o.x*W, gy=o.y*H;
+      var rad=o.r*pulse;
+      var grad=ctx.createRadialGradient(gx,gy,0,gx,gy,rad);
+      if(o.type==='gold'){
+        grad.addColorStop(0,'rgba(255,210,80,.55)');
+        grad.addColorStop(.3,'rgba(233,185,73,.35)');
+        grad.addColorStop(.65,'rgba(200,140,30,.12)');
+        grad.addColorStop(1,'rgba(180,120,0,0)');
+      } else {
+        grad.addColorStop(0,'rgba(140,230,255,.5)');
+        grad.addColorStop(.3,'rgba(92,198,232,.32)');
+        grad.addColorStop(.65,'rgba(50,160,210,.1)');
+        grad.addColorStop(1,'rgba(30,130,180,0)');
+      }
+      ctx.beginPath();
+      ctx.arc(gx,gy,rad,0,Math.PI*2);
+      ctx.fillStyle=grad;
+      ctx.fill();
+      o.x+=o.vx; o.y+=o.vy;
+      if(o.x<-.15)o.x=1.15;
+      if(o.x>1.15)o.x=-.15;
+      if(o.y<-.15)o.y=1.15;
+      if(o.y>1.15)o.y=-.15;
+    });
+
+    // 光の筋
+    streaks.forEach(function(s){
+      var sx=s.x*W, sy=s.y*H;
+      var ex=sx+Math.cos(s.angle)*s.len*W;
+      var ey=sy+Math.sin(s.angle)*s.len*H;
+      var grad=ctx.createLinearGradient(sx,sy,ex,ey);
+      var col=s.gold?'233,185,73':'92,198,232';
+      grad.addColorStop(0,'rgba('+col+',0)');
+      grad.addColorStop(.5,'rgba('+col+','+s.a+')');
+      grad.addColorStop(1,'rgba('+col+',0)');
+      ctx.beginPath();
+      ctx.moveTo(sx,sy);
+      ctx.lineTo(ex,ey);
+      ctx.strokeStyle=grad;
+      ctx.lineWidth=s.w;
+      ctx.stroke();
+      s.x+=Math.cos(s.angle)*s.speed;
+      s.y+=Math.sin(s.angle)*s.speed;
+      if(s.x<-.1)s.x=1.1;
+      if(s.x>1.1)s.x=-.1;
+      if(s.y<-.1)s.y=1.1;
+      if(s.y>1.1)s.y=-.1;
+    });
+
+    // 粒子
+    dots.forEach(function(d){
+      d.life++;
+      if(d.life>=d.max){d.x=Math.random();d.y=1.05;d.life=0;d.max=Math.floor(Math.random()*180+100)}
+      var fade=d.life<50?d.life/50:d.life>d.max-50?(d.max-d.life)/50:1;
+      var col=d.gold?'255,210,80':'130,220,255';
+      ctx.beginPath();
+      ctx.arc(d.x*W,d.y*H,d.r,0,Math.PI*2);
+      ctx.fillStyle='rgba('+col+','+(d.a*fade)+')';
+      ctx.fill();
+      // グロー
+      var g2=ctx.createRadialGradient(d.x*W,d.y*H,0,d.x*W,d.y*H,d.r*4);
+      g2.addColorStop(0,'rgba('+col+','+(d.a*fade*.4)+')');
+      g2.addColorStop(1,'rgba('+col+',0)');
+      ctx.beginPath();
+      ctx.arc(d.x*W,d.y*H,d.r*4,0,Math.PI*2);
+      ctx.fillStyle=g2;
+      ctx.fill();
+      d.x+=d.vx; d.y+=d.vy;
+      if(d.x<0)d.x=1;if(d.x>1)d.x=0;
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ===== REVEAL =====
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}});
+},{threshold:.1,rootMargin:'0px 0px -4% 0px'});
+document.querySelectorAll('.rv,.stitch').forEach(function(el){io.observe(el)});
+setTimeout(function(){document.querySelectorAll('.rv,.stitch').forEach(function(el){el.classList.add('show')})},1800);
+</script>
+</body>
+</html>
