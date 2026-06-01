@@ -162,7 +162,7 @@ h2{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(1.9rem
 .tsukun-cta{
   position:fixed;bottom:0;left:0;right:0;z-index:200;
   display:flex;align-items:center;gap:12px;
-  transform:translateY(100%);opacity:0;transition:transform .5s ease,opacity .5s ease;
+  transform:translateY(100%);opacity:0;transition:transform 1.2s cubic-bezier(.2,.8,.2,1),opacity 1.2s ease;
   pointer-events:none;}
 .tsukun-cta.visible{transform:translateY(0);opacity:1;pointer-events:auto;
   background:linear-gradient(100deg,#162558,#1e3478);
@@ -535,8 +535,7 @@ document.getElementById('makuModal').addEventListener('touchend',function(e){var
 
 // ===== TENTSUKUN BANNER =====
 window.addEventListener('scroll',function(){
-  var cta=document.querySelector('.tsukun-cta');
-  if(window.scrollY>250){cta.classList.add('visible');}else{cta.classList.remove('visible');}
+  if(window.scrollY>250){document.querySelector('.tsukun-cta').classList.add('visible');}
 },{passive:true});
 
 // ===== REVEAL =====
