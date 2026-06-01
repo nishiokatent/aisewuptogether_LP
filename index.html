@@ -149,16 +149,37 @@ h2{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(1.9rem
 
 /* ===== PORTFOLIO ===== */
 .pcards{display:flex;flex-direction:column;gap:12px;margin-top:36px}
-.pc{display:block;text-decoration:none;color:inherit;background:rgba(12,12,12,.92);border:1px solid #252525;padding:26px 22px;position:relative;transition:border-color .4s,box-shadow .4s}
-.pc:hover{border-color:#e9b949;box-shadow:0 16px 50px -16px rgba(233,185,73,.2)}
-.pc::after{content:"→";font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.3rem;color:#e9b949;position:absolute;right:22px;bottom:22px;transition:transform .4s}
-.pc:hover::after{transform:translateX(5px)}
+.pc{display:block;text-decoration:none;color:inherit;background:rgba(12,12,12,.92);border:1px solid #333;padding:22px 20px 54px;position:relative;transition:border-color .3s,box-shadow .3s,transform .15s}
+.pc:hover{border-color:#e9b949;box-shadow:0 0 0 1px rgba(233,185,73,.35),0 16px 50px -16px rgba(233,185,73,.25)}
+.pc:active{transform:scale(.97);opacity:.85}
 .pc-num{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.78rem;letter-spacing:.3em;color:#e9b949;margin-bottom:10px}
 .pc h3{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:.04em;margin-bottom:10px}
-.pc p{font-size:.86rem;color:#b8b2a6;line-height:2;font-weight:300;padding-right:28px}
+.pc p{font-size:.86rem;color:#b8b2a6;line-height:2;font-weight:300}
+.pc-open{position:absolute;bottom:16px;left:20px;right:20px;display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(233,185,73,.1);border:1px solid rgba(233,185,73,.4);padding:8px 0;font-size:.78rem;letter-spacing:.14em;color:#e9b949;font-family:"Cormorant Garamond",serif;font-style:italic;transition:background .3s}
+.pc:hover .pc-open{background:rgba(233,185,73,.18)}
+
+/* ===== てんつ君 STICKY CTA ===== */
+.tsukun-cta{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;gap:12px;
+  background:linear-gradient(100deg,#c9221a,#e03828 50%,#c42010);
+  padding:13px 18px 13px 16px;
+  text-decoration:none;color:#fff;
+  box-shadow:0 -4px 32px rgba(210,34,20,.7);
+  animation:ctaGlow 2s ease-in-out infinite;
+  -webkit-tap-highlight-color:transparent;
+}
+.tsukun-cta:active{opacity:.85;transform:scaleY(.97)}
+.tsukun-badge{background:#fff;color:#c9221a;font-size:.6rem;font-weight:700;letter-spacing:.08em;padding:3px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0}
+.tsukun-body{flex:1;min-width:0}
+.tsukun-title{display:block;font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:1rem;letter-spacing:.04em;line-height:1.3}
+.tsukun-sub{display:block;font-size:.68rem;color:rgba(255,255,255,.8);letter-spacing:.05em;margin-top:2px}
+.tsukun-arrow{font-family:"Cormorant Garamond",serif;font-size:1.8rem;color:#fff;flex-shrink:0;animation:arrowPulse 1.4s ease-in-out infinite}
+@keyframes ctaGlow{0%,100%{box-shadow:0 -4px 32px rgba(210,34,20,.6)}50%{box-shadow:0 -4px 52px rgba(210,34,20,1),0 -1px 18px rgba(255,200,80,.35)}}
+@keyframes arrowPulse{0%,100%{transform:translateX(0)}60%{transform:translateX(5px)}}
 
 /* ===== FOOTER ===== */
-footer{padding:80px 28px 60px;text-align:center;border-top:1px solid #1c1c1c}
+footer{padding:80px 28px 130px;text-align:center;border-top:1px solid #1c1c1c}
 .ft-sig{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.7rem;letter-spacing:.22em;color:#e9b949;margin-bottom:12px;text-shadow:0 0 20px rgba(233,185,73,.4)}
 .ft-title{font-family:"Shippori Mincho B1",serif;font-size:1.05rem;color:#fff;letter-spacing:.12em;margin-bottom:20px}
 .ft-meta{font-size:.76rem;color:#555;line-height:2.2}
@@ -304,12 +325,22 @@ footer{padding:80px 28px 60px;text-align:center;border-top:1px solid #1c1c1c}
     <h2 class="rv">こんなものが、<br><span class="g">もう作れる時代。</span></h2>
     <p class="txt rv d1">テントづくりの傍ら、AIと共に形にしてきた実績です。</p>
     <div class="pcards">
-      <a class="pc rv d1" href="https://nishiokatent-portfolio.vercel.app/" target="_blank" rel="noopener"><p class="pc-num">Work 01</p><h3>施工事例集・ポートフォリオ</h3><p>これまで手がけてきたテント・シートの施工事例集。技術とデザインの記録をまとめています。</p></a>
-      <a class="pc rv d2" href="https://www.atarayo.net/" target="_blank" rel="noopener"><p class="pc-num">Work 02</p><h3>飲食店のホームページ</h3><p>友人の居酒屋のために、AIと一緒にゼロから制作・公開。コードの知識ゼロから、お店の魅力を伝えるサイトを形にしました。</p></a>
-      <a class="pc rv d3" href="#" onclick="event.preventDefault();document.getElementById('makuModal').style.display='flex'"><p class="pc-num">Work 03</p><h3>テント業界SaaS「幕ナビ」</h3><p>生地の張り替えシミュレーター・自動見積もりなど、業界の困りごとを解決するツール群を開発中。</p></a>
+      <a class="pc rv d1" href="https://nishiokatent-portfolio.vercel.app/" target="_blank" rel="noopener"><p class="pc-num">Work 01</p><h3>施工事例集・ポートフォリオ</h3><p>これまで手がけてきたテント・シートの施工事例集。技術とデザインの記録をまとめています。</p><span class="pc-open">開く &nbsp;→</span></a>
+      <a class="pc rv d2" href="https://www.atarayo.net/" target="_blank" rel="noopener"><p class="pc-num">Work 02</p><h3>飲食店のホームページ</h3><p>友人の居酒屋のために、AIと一緒にゼロから制作・公開。コードの知識ゼロから、お店の魅力を伝えるサイトを形にしました。</p><span class="pc-open">開く &nbsp;→</span></a>
+      <a class="pc rv d3" href="#" onclick="event.preventDefault();document.getElementById('makuModal').style.display='flex'"><p class="pc-num">Work 03</p><h3>テント業界SaaS「幕ナビ」</h3><p>生地の張り替えシミュレーター・自動見積もりなど、業界の困りごとを解決するツール群を開発中。</p><span class="pc-open">画面を見る &nbsp;→</span></a>
     </div>
   </div>
 </section>
+
+<!-- てんつ君 STICKY CTA -->
+<a class="tsukun-cta" href="https://tentsukun-app.vercel.app/" target="_blank" rel="noopener">
+  <span class="tsukun-badge">本日限定</span>
+  <span class="tsukun-body">
+    <span class="tsukun-title">てんつ君を今すぐ体験</span>
+    <span class="tsukun-sub">幕ナビの張替シミュレーター · 本日のみ公開中</span>
+  </span>
+  <span class="tsukun-arrow">→</span>
+</a>
 
 <!-- MAKUNAVI MODAL -->
 <style>
