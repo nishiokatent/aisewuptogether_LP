@@ -97,6 +97,8 @@ h2{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(1.9rem
 /* ===== IMAGE AREAS ===== */
 .img-area{width:100%;margin:32px 0;border:1px solid rgba(233,185,73,.25);overflow:hidden;position:relative;aspect-ratio:16/9;background:rgba(10,8,0,.5)}
 .img-area img{width:100%;height:100%;display:block;filter:brightness(.88);transition:filter .6s ease;object-fit:cover;color:transparent;font-size:.7rem}
+.img-portrait{aspect-ratio:unset}
+.img-portrait img{height:auto;object-fit:contain}
 .img-area:hover img{filter:brightness(1)}
 .img-area::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,.65));pointer-events:none}
 .img-placeholder{width:100%;aspect-ratio:16/9;background:rgba(10,8,0,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#555;font-size:.82rem;letter-spacing:.08em}
@@ -252,7 +254,7 @@ footer{padding:80px 28px 60px;text-align:center;border-top:1px solid #1c1c1c}
     <h2 class="rv">一枚の白い生地から、<br><span class="g">世界が生まれた。</span></h2>
     <p class="txt rv d1">この作品は、テント職人が一枚の生地を縫い上げることから始まります。ねじれた縫い目は、それ自体が物語です。</p>
 
-    <div class="img-area rv d2">
+    <div class="img-area img-portrait rv d2">
       <img src="tent.png" alt="完成した白いテント作品">
     </div>
 
@@ -302,9 +304,9 @@ footer{padding:80px 28px 60px;text-align:center;border-top:1px solid #1c1c1c}
     <h2 class="rv">こんなものが、<br><span class="g">もう作れる時代。</span></h2>
     <p class="txt rv d1">テントづくりの傍ら、AIと共に形にしてきた実績です。</p>
     <div class="pcards">
-      <a class="pc rv d1" href="#"><p class="pc-num">Work 01</p><h3>飲食店のホームページ</h3><p>友人の居酒屋のために、AIと一緒にゼロから制作・公開。コードの知識ゼロから、お店の魅力を伝えるサイトを形にしました。</p></a>
-      <a class="pc rv d2" href="#"><p class="pc-num">Work 02</p><h3>テント業界SaaS「幕ナビ」</h3><p>生地の張り替えシミュレーター・自動見積もりなど、業界の困りごとを解決するツール群を開発中。</p></a>
-      <a class="pc rv d3" href="#"><p class="pc-num">Work 03</p><h3>施工事例・ポートフォリオ</h3><p>これまで手がけてきたテント・シートの施工事例集。技術とデザインの記録をまとめています。</p></a>
+      <a class="pc rv d1" href="https://nishiokatent-portfolio.vercel.app/" target="_blank" rel="noopener"><p class="pc-num">Work 01</p><h3>施工事例集・ポートフォリオ</h3><p>これまで手がけてきたテント・シートの施工事例集。技術とデザインの記録をまとめています。</p></a>
+      <a class="pc rv d2" href="https://www.atarayo.net/" target="_blank" rel="noopener"><p class="pc-num">Work 02</p><h3>飲食店のホームページ</h3><p>友人の居酒屋のために、AIと一緒にゼロから制作・公開。コードの知識ゼロから、お店の魅力を伝えるサイトを形にしました。</p></a>
+      <a class="pc rv d3" href="#"><p class="pc-num">Work 03</p><h3>テント業界SaaS「幕ナビ」</h3><p>生地の張り替えシミュレーター・自動見積もりなど、業界の困りごとを解決するツール群を開発中。</p></a>
     </div>
   </div>
 </section>
