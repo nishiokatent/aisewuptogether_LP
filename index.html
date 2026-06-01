@@ -306,10 +306,28 @@ footer{padding:80px 28px 60px;text-align:center;border-top:1px solid #1c1c1c}
     <div class="pcards">
       <a class="pc rv d1" href="https://nishiokatent-portfolio.vercel.app/" target="_blank" rel="noopener"><p class="pc-num">Work 01</p><h3>施工事例集・ポートフォリオ</h3><p>これまで手がけてきたテント・シートの施工事例集。技術とデザインの記録をまとめています。</p></a>
       <a class="pc rv d2" href="https://www.atarayo.net/" target="_blank" rel="noopener"><p class="pc-num">Work 02</p><h3>飲食店のホームページ</h3><p>友人の居酒屋のために、AIと一緒にゼロから制作・公開。コードの知識ゼロから、お店の魅力を伝えるサイトを形にしました。</p></a>
-      <a class="pc rv d3" href="https://makunavi.vercel.app" target="_blank" rel="noopener"><p class="pc-num">Work 03</p><h3>テント業界SaaS「幕ナビ」</h3><p>生地の張り替えシミュレーター・自動見積もりなど、業界の困りごとを解決するツール群を開発中。</p></a>
+      <a class="pc rv d3" href="#" onclick="event.preventDefault();document.getElementById('makuModal').style.display='flex'"><p class="pc-num">Work 03</p><h3>テント業界SaaS「幕ナビ」</h3><p>生地の張り替えシミュレーター・自動見積もりなど、業界の困りごとを解決するツール群を開発中。</p></a>
     </div>
   </div>
 </section>
+
+<!-- MAKUNAVI MODAL -->
+<div id="makuModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)this.style.display='none'">
+  <div style="position:relative;max-width:400px;width:100%">
+    <img id="makuImg" src="1.png" style="width:100%;display:block;border:1px solid rgba(233,185,73,.35);max-height:70vh;object-fit:contain;background:#000" alt="幕ナビ アプリ画面">
+    <div style="background:rgba(5,5,15,.97);padding:14px 16px;border:1px solid rgba(233,185,73,.35);border-top:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <button onclick="makuPrev()" style="background:transparent;border:1px solid #444;color:#ccc;width:36px;height:36px;font-size:1.1rem;cursor:pointer">‹</button>
+        <span id="makuCounter" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.85rem;color:#e9b949;letter-spacing:.15em">1 / 9</span>
+        <button onclick="makuNext()" style="background:transparent;border:1px solid #444;color:#ccc;width:36px;height:36px;font-size:1.1rem;cursor:pointer">›</button>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center">
+        <a href="https://makunavi.vercel.app" target="_blank" rel="noopener" style="flex:1;display:block;background:#1A2F6E;color:#fff;padding:11px 0;font-family:'Noto Sans JP',sans-serif;font-size:.82rem;letter-spacing:.08em;text-decoration:none;text-align:center">アプリを開く →</a>
+        <button onclick="document.getElementById('makuModal').style.display='none'" style="background:transparent;border:1px solid #444;color:#777;padding:11px 16px;font-family:'Noto Sans JP',sans-serif;font-size:.82rem;cursor:pointer">閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer>
   <p class="ft-sig">Ai Sew Up, Together</p>
@@ -456,6 +474,13 @@ footer{padding:80px 28px 60px;text-align:center;border-top:1px solid #1c1c1c}
   }
   draw();
 })();
+
+// ===== MAKUNAVI MODAL =====
+var makuIdx=1;
+function makuShow(n){makuIdx=n;document.getElementById('makuImg').src=n+'.png';document.getElementById('makuCounter').textContent=n+' / 9';}
+function makuNext(){makuShow(makuIdx>=9?1:makuIdx+1);}
+function makuPrev(){makuShow(makuIdx<=1?9:makuIdx-1);}
+document.addEventListener('keydown',function(e){var m=document.getElementById('makuModal');if(m.style.display==='flex'){if(e.key==='ArrowRight')makuNext();else if(e.key==='ArrowLeft')makuPrev();else if(e.key==='Escape')m.style.display='none';}});
 
 // ===== REVEAL =====
 var io=new IntersectionObserver(function(entries){
