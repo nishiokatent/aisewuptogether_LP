@@ -535,7 +535,8 @@ document.getElementById('makuModal').addEventListener('touchend',function(e){var
 
 // ===== TENTSUKUN BANNER =====
 window.addEventListener('scroll',function(){
-  if(window.scrollY>250){document.querySelector('.tsukun-cta').classList.add('visible');}
+  var cta=document.querySelector('.tsukun-cta');
+  if(window.scrollY>250){cta.classList.add('visible');}else{cta.classList.remove('visible');}
 },{passive:true});
 
 // ===== REVEAL =====
