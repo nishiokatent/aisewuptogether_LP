@@ -171,26 +171,21 @@ h2{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(1.9rem
 /* ===== てんつ君 STICKY CTA ===== */
 .tsukun-cta{
   position:fixed;bottom:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;gap:12px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
   transform:translateY(100%);opacity:0;transition:transform 1.2s cubic-bezier(.2,.8,.2,1),opacity 1.2s ease;
-  pointer-events:none;}
+  pointer-events:none;text-decoration:none;-webkit-tap-highlight-color:transparent;}
 .tsukun-cta.visible{transform:translateY(0);opacity:1;pointer-events:auto;
-  background:linear-gradient(100deg,#162558,#1e3478);
-  border-top:1px solid rgba(233,185,73,.4);
-  padding:13px 18px 13px 16px;
-  text-decoration:none;color:#fff;
-  box-shadow:0 -4px 28px rgba(20,35,90,.7);
-  animation:ctaGlow 3.5s ease-in-out infinite;
-  -webkit-tap-highlight-color:transparent;
+  background:linear-gradient(100deg,#d4a820,#e9b949 50%,#d4a820);
+  padding:15px 20px;
+  box-shadow:0 -4px 40px rgba(233,185,73,.9);
+  animation:ctaGlow 2.5s ease-in-out infinite;
 }
-.tsukun-cta:active{opacity:.82;transform:scaleY(.97)}
-.tsukun-badge{background:#e9b949;color:#111;font-size:.6rem;font-weight:700;letter-spacing:.08em;padding:3px 7px;border-radius:2px;white-space:nowrap;flex-shrink:0}
-.tsukun-body{flex:1;min-width:0}
-.tsukun-title{display:block;font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:1rem;letter-spacing:.04em;line-height:1.3;color:#fff}
-.tsukun-sub{display:block;font-size:.68rem;color:rgba(255,255,255,.65);letter-spacing:.05em;margin-top:2px}
-.tsukun-arrow{font-family:"Cormorant Garamond",serif;font-size:1.8rem;color:#e9b949;flex-shrink:0;animation:arrowPulse 2.2s ease-in-out infinite}
-@keyframes ctaGlow{0%,100%{box-shadow:0 -4px 28px rgba(20,35,90,.7)}50%{box-shadow:0 -4px 40px rgba(20,35,90,.9),0 -1px 16px rgba(233,185,73,.2)}}
-@keyframes arrowPulse{0%,100%{transform:translateX(0)}60%{transform:translateX(4px)}}
+.tsukun-cta:active{opacity:.82}
+.tsukun-badge{background:#1A2F6E;color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.1em;padding:4px 9px;border-radius:2px;white-space:nowrap;flex-shrink:0}
+.tsukun-title{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:.95rem;letter-spacing:.05em;color:#111;white-space:nowrap}
+.tsukun-arrow{font-family:"Cormorant Garamond",serif;font-size:1.6rem;color:#1A2F6E;flex-shrink:0;animation:arrowPulse 1.8s ease-in-out infinite}
+@keyframes ctaGlow{0%,100%{box-shadow:0 -4px 40px rgba(233,185,73,.8)}50%{box-shadow:0 -6px 60px rgba(233,185,73,1),0 -2px 20px rgba(233,185,73,.5)}}
+@keyframes arrowPulse{0%,100%{transform:translateX(0)}60%{transform:translateX(5px)}}
 
 /* ===== FOOTER ===== */
 footer{padding:80px 28px 130px;text-align:center;border-top:1px solid #1c1c1c}
@@ -349,10 +344,7 @@ footer{padding:80px 28px 130px;text-align:center;border-top:1px solid #1c1c1c}
 <!-- てんつ君 STICKY CTA -->
 <a class="tsukun-cta" href="https://tentsukun-app.vercel.app/" target="_blank" rel="noopener">
   <span class="tsukun-badge">本日限定</span>
-  <span class="tsukun-body">
-    <span class="tsukun-title">てんつ君を今すぐ体験</span>
-    <span class="tsukun-sub">幕ナビの張替シミュレーター · 本日のみ公開中</span>
-  </span>
+  <span class="tsukun-title">テント張替シミュレーターを今すぐ体験</span>
   <span class="tsukun-arrow">→</span>
 </a>
 
