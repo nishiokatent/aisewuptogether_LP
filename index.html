@@ -106,6 +106,9 @@ h2{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:clamp(1.9rem
 .img-area img{width:100%;height:100%;display:block;filter:brightness(.88);transition:filter .6s ease;object-fit:cover;color:transparent;font-size:.7rem}
 .img-portrait{aspect-ratio:unset}
 .img-portrait img{height:auto;object-fit:contain}
+.img-full{aspect-ratio:unset;margin-top:0}
+.img-full img{height:auto;object-fit:contain}
+#concept{padding-top:0}
 .img-area:hover img{filter:brightness(1)}
 .img-area::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,.65));pointer-events:none}
 .img-placeholder{width:100%;aspect-ratio:16/9;background:rgba(10,8,0,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#555;font-size:.82rem;letter-spacing:.08em}
@@ -209,9 +212,6 @@ footer{padding:80px 28px 130px;text-align:center;border-top:1px solid #1c1c1c}
 /* ===== スマホ専用 余白徹底削減 ===== */
 @media(max-width:640px){
   .hero{padding:28px 20px 36px;min-height:100svh}
-  #concept{padding-top:16px}
-  #concept .gline{padding:8px 0;gap:4px}
-  #concept .gline-bar{height:24px}
   .hero-badge{margin-bottom:24px}
   .hero-catch{max-width:none}
   .hero-en{margin-bottom:24px}
@@ -261,9 +261,7 @@ footer{padding:80px 28px 130px;text-align:center;border-top:1px solid #1c1c1c}
 <!-- CONCEPT -->
 <section id="concept">
   <div class="wrap">
-    <div class="gline"><div class="gline-dot"></div><div class="gline-bar"></div><div class="gline-dot"></div></div>
-
-    <div class="img-area rv">
+    <div class="img-area img-full rv">
       <img src="craftsman_ai.jpeg" alt="職人とAIアバターが森で握手する瞬間">
     </div>
 
