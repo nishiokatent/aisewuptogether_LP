@@ -205,8 +205,20 @@ footer{padding:80px 28px 130px;text-align:center;border-top:1px solid #1c1c1c}
 @keyframes pulse{0%,100%{transform:scaleY(.35);transform-origin:top;opacity:.4}50%{transform:scaleY(1);transform-origin:top;opacity:1}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.stitch,.hero-badge,.hero-title,.hero-en,.hero-catch,.hero-scroll{opacity:1!important;transform:none!important}.stitch{transform:scaleX(1)!important}}
 
+/* ===== LYRICS ===== */
+.lyric-wrap{border:1px solid rgba(233,185,73,.22);padding:40px 32px;position:relative;text-align:center;background:rgba(0,0,0,.25)}
+.lyric-wrap::before,.lyric-wrap::after{content:"";position:absolute;left:50%;transform:translateX(-50%);width:44px;height:1px;background:#e9b949}
+.lyric-wrap::before{top:-1px}.lyric-wrap::after{bottom:-1px}
+.lyric-stanza{font-family:"Shippori Mincho B1",serif;font-size:clamp(.97rem,3.8vw,1.18rem);line-height:2.35;color:#d0cab8;letter-spacing:.1em}
+.lyric-sep{width:1px;height:30px;background:linear-gradient(transparent,rgba(233,185,73,.45),transparent);margin:22px auto}
+.lyric-main-line{font-family:"Shippori Mincho B1",serif;font-size:clamp(1.3rem,5.5vw,1.75rem);color:#e9b949;text-shadow:0 0 28px rgba(233,185,73,.45);letter-spacing:.12em;margin-bottom:4px}
+.lyric-en1{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:clamp(.98rem,4vw,1.3rem);color:#c0b8a8;letter-spacing:.28em;display:block;margin-bottom:4px}
+.lyric-en2{font-family:"Cormorant Garamond",serif;font-size:clamp(.84rem,3.2vw,1.05rem);color:#5cc6e8;letter-spacing:.22em;display:block}
+
 /* ===== スマホ専用 余白徹底削減 ===== */
 @media(max-width:640px){
+  .lyric-wrap{padding:26px 16px}
+  .lyric-sep{height:20px;margin:16px auto}
   .hero{padding:28px 20px 36px;min-height:100svh}
   .hero-badge{margin-bottom:24px}
   .hero-catch{max-width:none}
@@ -312,6 +324,35 @@ footer{padding:80px 28px 130px;text-align:center;border-top:1px solid #1c1c1c}
       <div class="ps rv d2"><p class="ps-tool">Runway / Kling</p><h3>映像を生み出す</h3><p>静止画に命を吹き込み、動く映像へ。植物が芽吹き、光が走り、職人とAIが出会う場面を紡ぎました。</p></div>
       <div class="ps rv d3"><p class="ps-tool">Suno</p><h3>音楽を奏でる</h3><p>作品のために書き下ろした歌詞に、AIがメロディを与える。世界に一つだけの楽曲が完成しました。</p></div>
       <div class="ps rv d4"><p class="ps-tool">HeavyM</p><h3>テントに灯す</h3><p>映像と音をテントの曲面と背景に投影。光と生地と技術が重なり合い、作品が完成します。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LYRICS -->
+<section id="lyrics">
+  <div class="wrap">
+    <div class="gline"><div class="gline-dot"></div><div class="gline-bar"></div><div class="gline-dot"></div></div>
+    <p class="slabel rv">Lyrics — 歌詞</p>
+    <h2 class="rv">AIが命を吹き込んだ、<br><span class="g">この一曲。</span></h2>
+    <div class="lyric-wrap rv d1">
+      <div class="lyric-stanza">
+        <p>夜明けの光が差し込んで</p>
+        <p>職人の手が動き出す</p>
+        <p>私とあなたの手が</p>
+        <p>未来を縫い上げる</p>
+      </div>
+      <div class="lyric-sep"></div>
+      <div class="lyric-stanza">
+        <p>これが新しい夜明け</p>
+        <p>テントが作り出す未来</p>
+        <p>ここから始まる物語</p>
+      </div>
+      <div class="lyric-sep"></div>
+      <div class="lyric-stanza">
+        <p class="lyric-main-line">未来への一針</p>
+        <span class="lyric-en1">Step into the future</span>
+        <span class="lyric-en2">Ai Sew Up Together</span>
+      </div>
     </div>
   </div>
 </section>
